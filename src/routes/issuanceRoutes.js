@@ -1,28 +1,28 @@
 const express = require("express");
 
 const {
-  createMember,
-  getAllMembers,
-  getMemberById,
-  updateMember,
-  deleteMember,
-} = require("../controllers/memberController");
+    createIssuance,
+    getAllIssuances,
+    getIssuanceById,
+    updateIssuance,
+    returnBook,
+} = require("../controllers/issuanceController");
 
 const router = express.Router();
 
 /**
  * @swagger
  * tags:
- *   name: Members
- *   description: Member management APIs
+ *   name: Issuances
+ *   description: Book issuance management APIs
  */
 
 /**
  * @swagger
- * /members:
+ * /issuances:
  *   post:
- *     summary: Create a new member
- *     tags: [Members]
+ *     summary: Create a new issuance
+ *     tags: [Issuances]
  *     security:
  *       - ApiKeyAuth: []
  *     requestBody:
@@ -32,38 +32,40 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               mem_name:
+ *               book_id:
+ *                 type: integer
+ *               issuance_member:
+ *                 type: integer
+ *               issued_by:
  *                 type: string
- *               mem_phone:
- *                 type: string
- *               mem_email:
+ *               issuance_status:
  *                 type: string
  *     responses:
  *       201:
- *         description: Member created successfully
+ *         description: Issuance created successfully
  */
-router.post("/", createMember);
+router.post("/", createIssuance);
 
 /**
  * @swagger
- * /members:
+ * /issuances:
  *   get:
- *     summary: Get all members
- *     tags: [Members]
+ *     summary: Get all issuances
+ *     tags: [Issuances]
  *     security:
  *       - ApiKeyAuth: []
  *     responses:
  *       200:
- *         description: List of members
+ *         description: List of issuances
  */
-router.get("/", getAllMembers);
+router.get("/", getAllIssuances);
 
 /**
  * @swagger
- * /members/{id}:
+ * /issuances/{id}:
  *   get:
- *     summary: Get member by ID
- *     tags: [Members]
+ *     summary: Get issuance by ID
+ *     tags: [Issuances]
  *     security:
  *       - ApiKeyAuth: []
  *     parameters:
@@ -74,18 +76,18 @@ router.get("/", getAllMembers);
  *           type: integer
  *     responses:
  *       200:
- *         description: Member details
+ *         description: Issuance details
  *       404:
- *         description: Member not found
+ *         description: Issuance not found
  */
-router.get("/:id", getMemberById);
+router.get("/:id", getIssuanceById);
 
 /**
  * @swagger
- * /members/{id}:
+ * /issuances/{id}:
  *   put:
- *     summary: Update a member
- *     tags: [Members]
+ *     summary: Update an issuance
+ *     tags: [Issuances]
  *     security:
  *       - ApiKeyAuth: []
  *     parameters:
@@ -96,16 +98,16 @@ router.get("/:id", getMemberById);
  *           type: integer
  *     responses:
  *       200:
- *         description: Member updated successfully
+ *         description: Issuance updated successfully
  */
-router.put("/:id", updateMember);
+router.put("/:id", updateIssuance);
 
 /**
  * @swagger
- * /members/{id}:
- *   delete:
- *     summary: Delete a member
- *     tags: [Members]
+ * /issuances/{id}/return:
+ *   put:
+ *     summary: Return an issued book
+ *     tags: [Issuances]
  *     security:
  *       - ApiKeyAuth: []
  *     parameters:
@@ -116,8 +118,8 @@ router.put("/:id", updateMember);
  *           type: integer
  *     responses:
  *       200:
- *         description: Member deleted successfully
+ *         description: Book returned successfully
  */
-router.delete("/:id", deleteMember);
+router.put("/:id/return", returnBook);
 
 module.exports = router;

@@ -1,11 +1,12 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
 const sequelize = new Sequelize(
-    "library_management",
-    "library_user",
-    "library123",
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
     {
-        host: "localhost",
+        host: process.env.DB_HOST,
         dialect: "postgres",
         logging: false,
     }

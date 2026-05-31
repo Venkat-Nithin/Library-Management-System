@@ -27,6 +27,9 @@ const Book = sequelize.define(
         book_publisher: {
             type: DataTypes.STRING,
         },
+        book_author: {
+            type: DataTypes.STRING,
+        },
     },
     {
         tableName: "book",

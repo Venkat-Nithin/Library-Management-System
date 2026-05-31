@@ -92,9 +92,40 @@ const updateMember = async (req, res) => {
     }
 };
 
+/*
+  DELETE MEMBER
+*/
+const deleteMember = async (req, res) => {
+    try {
+        const member = await Member.findByPk(req.params.id);
+
+        if (!member) {
+            return res.status(404).json({
+                success: false,
+                message: "Member not found",
+            });
+        }
+
+        await member.destroy();
+
+        res.status(200).json({
+            success: true,
+            message: "Member deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
 module.exports = {
     createMember,
     getAllMembers,
     getMemberById,
     updateMember,
+    deleteMember,
 };
+
+console.log("EXPORTS:", module.exports);

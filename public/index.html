@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management Dashboard</title>
+    <link rel="stylesheet" href="/ui/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Library Admin Dashboard</h1>
+                <p>Monitor outstanding books and pending returns</p>
+            </div>
+            <div class="api-key-container">
+                <div class="input-group">
+                    <label for="api-key-input" class="api-key-label">API Key:</label>
+                    <input type="password" id="api-key-input" placeholder="Enter API Key" value="library-secret-key">
+                </div>
+                <button id="refresh-btn" class="btn-primary">
+                    <span class="icon">↻</span> Refresh Data
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="stats-cards">
+                <div class="card stat-card">
+                    <h3>Total Outstanding</h3>
+                    <div class="stat-value" id="total-outstanding">-</div>
+                </div>
+                <div class="card stat-card">
+                    <h3>Overdue</h3>
+                    <div class="stat-value warning" id="total-overdue">-</div>
+                </div>
+            </div>
+
+            <div class="card table-card">
+                <div class="table-header">
+                    <h2>Outstanding Books</h2>
+                </div>
+                <div class="table-container">
+                    <table id="outstanding-table">
+                        <thead>
+                            <tr>
+                                <th>Member Name</th>
+                                <th>Book Name</th>
+                                <th>Author</th>
+                                <th>Issued Date</th>
+                                <th>Target Return</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <tr>
+                                <td colspan="6" class="text-center loading-state">Loading data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/ui/app.js"></script>
+</body>
+</html>
