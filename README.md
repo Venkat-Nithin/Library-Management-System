@@ -74,4 +74,4 @@ The server will start on `http://localhost:5000`.
 - **Authentication**: Click the **Authorize** button in the top right corner and enter your API Key (`library-secret-key`) to unlock the endpoints.
 
 ### Raw SQL Queries
-The required raw SQL queries for the assignment are available for review he root directory file: `queries.sql`.
+The required raw SQL queries for the assignment are available for review in the root directory file: `queries.sql`.
