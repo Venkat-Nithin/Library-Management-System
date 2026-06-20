@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('table-body');
     const totalOutstandingEl = document.getElementById('total-outstanding');
     const totalOverdueEl = document.getElementById('total-overdue');
+    const booksTableBody = document.getElementById('books-table-body');
 
     const fetchOutstandingBooks = async () => {
         const apiKey = apiKeyInput.value.trim();
@@ -84,8 +85,69 @@ document.addEventListener('DOMContentLoaded', () => {
         totalOverdueEl.textContent = '-';
     };
 
-    refreshBtn.addEventListener('click', fetchOutstandingBooks);
+    const fetchAllBooks = async () => {
+        const apiKey = apiKeyInput.value.trim();
+        
+        if (!apiKey) {
+            return;
+        }
+
+        booksTableBody.innerHTML = `<tr><td colspan="7" class="text-center loading-state">Fetching data...</td></tr>`;
+
+        try {
+            const response = await fetch('/books', {
+                method: 'GET',
+                headers: {
+                    'x-api-key': apiKey,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to fetch books');
+            }
+
+            renderBooksTable(result.data);
+
+        } catch (error) {
+            booksTableBody.innerHTML = `<tr><td colspan="7" class="text-center error-state">Error: ${error.message}</td></tr>`;
+        }
+    };
+
+    const renderBooksTable = (data) => {
+        if (!data || data.length === 0) {
+            booksTableBody.innerHTML = `<tr><td colspan="7" class="text-center">No books found.</td></tr>`;
+            return;
+        }
+
+        const rows = data.map(item => {
+            const launchDate = item.book_launch_date ? new Date(item.book_launch_date).toLocaleDateString() : '-';
+            
+            return `
+                <tr>
+                    <td>${item.book_id}</td>
+                    <td><strong>${item.book_name}</strong></td>
+                    <td>${item.book_cat_id}</td>
+                    <td>${item.book_collection_id}</td>
+                    <td>${launchDate}</td>
+                    <td>${item.book_publisher || '-'}</td>
+                    <td>${item.book_author || '-'}</td>
+                </tr>
+            `;
+        });
+
+        booksTableBody.innerHTML = rows.join('');
+    };
+
+    const refreshAll = () => {
+        fetchOutstandingBooks();
+        fetchAllBooks();
+    };
+
+    refreshBtn.addEventListener('click', refreshAll);
 
     // Initial fetch
-    fetchOutstandingBooks();
+    refreshAll();
 });

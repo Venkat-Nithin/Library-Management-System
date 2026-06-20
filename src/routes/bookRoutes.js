@@ -100,6 +100,26 @@ router.get("/:id", getBookById);
  *         required: true
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               book_name:
+ *                 type: string
+ *               book_cat_id:
+ *                 type: integer
+ *               book_collection_id:
+ *                 type: integer
+ *               book_launch_date:
+ *                 type: string
+ *                 format: date
+ *               book_publisher:
+ *                 type: string
+ *               book_author:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Book updated successfully

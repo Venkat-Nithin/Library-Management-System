@@ -94,6 +94,22 @@ router.get("/:id", getMemberById);
  *         required: true
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mem_name:
+ *                 type: string
+ *                 example: Alice Johnson
+ *               mem_phone:
+ *                 type: string
+ *                 example: "9999999999"
+ *               mem_email:
+ *                 type: string
+ *                 example: alice@example.com
  *     responses:
  *       200:
  *         description: Member updated successfully

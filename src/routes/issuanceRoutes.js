@@ -96,6 +96,21 @@ router.get("/:id", getIssuanceById);
  *         required: true
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               book_id:
+ *                 type: integer
+ *               issuance_member:
+ *                 type: integer
+ *               issued_by:
+ *                 type: string
+ *               issuance_status:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Issuance updated successfully
